@@ -1,8 +1,11 @@
 const form = document.querySelector('form');
 const spanError = document.querySelector('.span-error');
-const spanLoading = document.querySelector('.span-loading');
+const spanLoading = document.querySelector('.span-loading')
+const img = document.getElementById('image');
+const imgUp = document.getElementById('uploadImage');
 const num = document.getElementById('number');
 const type = document.getElementById('type');
+
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -38,21 +41,17 @@ form.addEventListener('submit', (e) => {
         })
         .catch((error) => {
             console.error('Error:', error);
-            // window.location.href = './error.html';
-            // alert('Nie znaleziono metody zapisu.');
-
-
+            window.location.href = './error.html';
         });
 
     form.reset();
+    imgUp.remove();
 })
 
 const uploadFun = () =>{
-        const img = document.getElementById('image');
         const fReader = new FileReader();
         fReader.readAsDataURL(img.files[0]);
         fReader.onloadend = function(event){
-            const imgUp = document.getElementById("uploadImage");
             imgUp.src = event.target.result;
         }
     }
