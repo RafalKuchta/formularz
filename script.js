@@ -1,6 +1,6 @@
 const form = document.querySelector('form');
 const spanError = document.querySelector('.span-error');
-const spinner = document.querySelector('.spinner')
+const spinner = document.querySelector('.spinner');
 const img = document.getElementById('image');
 const imgUp = document.getElementById('uploadImage');
 const num = document.getElementById('number');
@@ -9,17 +9,14 @@ const type = document.getElementById('type');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    if (type.value === 'person') {
-        if (!isValidPesel(num.value)) {
-            spanError.innerText = 'Niepoprawny numer PESEL';
-            return;
-        };
-    } else {
-        if (!isValidNip(num.value)) {
-            spanError.innerText = 'Niepoprawny numer NIP';
-            return;
-        };
+    if (type.value === 'person' && !isValidPesel(num.value)) {
+        spanError.innerText = 'Niepoprawny numer PESEL';
+        return;
+    } else if (type.value === 'company' && !isValidNip(num.value)) {
+        spanError.innerText = 'Niepoprawny numer NIP';
+        return;
     };
+
     spanError.innerText = '';
     spinner.style.display = 'inline';
 
