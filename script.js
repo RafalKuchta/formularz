@@ -1,46 +1,47 @@
 const form = document.querySelector('form');
 const spanError = document.querySelector('.span-error');
-const spanLoading = document.querySelector('.span-loading')
+const spinner = document.querySelector('.spinner')
 const img = document.getElementById('image');
 const imgUp = document.getElementById('uploadImage');
 const num = document.getElementById('number');
 const type = document.getElementById('type');
 
-
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    if(type.value === 'person'){
-        if(!isValidPesel(num.value)) {
+    if (type.value === 'person') {
+        if (!isValidPesel(num.value)) {
             spanError.innerText = 'Niepoprawny numer PESEL';
             return;
         };
     } else {
-        if(!isValidNip(num.value)) {
+        if (!isValidNip(num.value)) {
             spanError.innerText = 'Niepoprawny numer NIP';
             return;
         };
-    }
+    };
     spanError.innerText = '';
-    spanLoading.innerText = 'Wysyłanie formularza...'
+    spinner.style.display = 'inline';
 
-    const data = { form };
-    console.log(data)
+    const data = new FormData(e.target);
+    const value = Object.fromEntries(data.entries());
 
     fetch('https://localhost:60001/Contractor/Save', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(value),
     })
         .then(response => response.json())
         .then(data => {
+            spinner.style.display = 'none';
             console.log('Success:', data);
             alert('Dziekujemy, formularz wysłany!');
         })
         .catch((error) => {
             console.error('Error:', error);
+            spinner.style.display = 'none';
             window.location.href = './error.html';
         });
 
@@ -48,13 +49,13 @@ form.addEventListener('submit', (e) => {
     imgUp.remove();
 })
 
-const uploadFun = () =>{
-        const fReader = new FileReader();
-        fReader.readAsDataURL(img.files[0]);
-        fReader.onloadend = function(event){
-            imgUp.src = event.target.result;
-        }
-    }
+const uploadFun = () => {
+    const fReader = new FileReader();
+    fReader.readAsDataURL(img.files[0]);
+    fReader.onloadend = function (event) {
+        imgUp.src = event.target.result;
+    };
+};
 
 const isValidPesel = (pesel) => {
     let weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
@@ -63,14 +64,14 @@ const isValidPesel = (pesel) => {
 
     for (let i = 0; i < weight.length; i++) {
         sum += (parseInt(pesel.substring(i, i + 1)) * weight[i]);
-    }
+    };
     sum = sum % 10;
 
-    return (10 - sum) % 10 === controlNumber
-}
+    return (10 - sum) % 10 === controlNumber;
+};
 
 const isValidNip = (nip) => {
-    if(typeof nip !== 'string')
+    if (typeof nip !== 'string')
         return false;
 
     nip = nip.replace(/[\ \-]/gi, '');
@@ -81,7 +82,7 @@ const isValidNip = (nip) => {
     let weightCount = weight.length;
     for (let i = 0; i < weightCount; i++) {
         sum += (parseInt(nip.substr(i, 1)) * weight[i]);
-    }
+    };
 
     return sum % 11 === controlNumber;
-}
+};

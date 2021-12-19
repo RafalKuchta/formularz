@@ -11,8 +11,7 @@
 </head>
 <body>
 <h1 class="display-5">Formularz dodawania kontrahenta</h1>
-
-    <form method="POST" id="form" role="form" data-toggle="validator">
+    <form id="form" role="form" data-toggle="validator">
         <div class="mb-3">
             <label
                     for="name"
@@ -74,7 +73,12 @@
                     class="form-control"
                     >
         </div>
-        <button type="submit" class="btn btn-primary">Wyślij</button><span class="span-loading"></span>
+        <button type="submit" class="btn btn-primary">Wyślij</button>
+
+        <button class="btn btn-primary spinner" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Wysyłanie formularza...
+        </button>
 
         <div class="uploadImage">
             <img id="uploadImage" >

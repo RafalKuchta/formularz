@@ -3,28 +3,26 @@ form, h1 {
     width: 50%;
 }
 
-
 @media (max-width: 700px) {
-    form, h1  {
+    form, h1 {
         margin: 10px auto;
         width: 90%;
     }
 }
 
 @media (max-width: 1000px) {
-    form, h1  {
+    form, h1 {
         margin: 20px auto;
         width: 80%;
     }
 }
 
 @media (max-width: 1300px) {
-    form, h1  {
+    form, h1 {
         margin: 30px auto;
         width: 70%;
     }
 }
-
 
 img {
     margin-top: 10px;
@@ -39,6 +37,11 @@ img {
 }
 
 .span-loading {
+    margin-left: 10px;
+}
+
+.spinner {
+    display: none;
     margin-left: 10px;
 }
 
