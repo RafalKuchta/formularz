@@ -46,11 +46,13 @@ form.addEventListener('submit', (e) => {
     imgUp.remove();
 })
 
-const uploadFun = () => {
+const uploadImg = () => {
     const fReader = new FileReader();
     fReader.readAsDataURL(img.files[0]);
     fReader.onloadend = function (event) {
         imgUp.src = event.target.result;
+        imgUp.style.height = '100vh';
+        imgUp.style.width = '100vh';
     };
 };
 
